@@ -1,0 +1,29 @@
+/* Global */
+:root {
+  /* Color */
+  --color-blue: #006480;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-grey: #b5b5b5;
+  --color-brown: #a84a0a;
+  --color-yellow: #ffd112;
+  --color-red: #ed1820;
+
+  /* Font size */
+  --font-large: 2.5rem;
+  --font-medium: 1.75rem;
+  --font-regular: 1.25rem;
+
+  /* Font weight */
+  --wieght-semi-bold: 600;
+  --weight-regular: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+button {
+  font-family: 'Nunito', sans-serif;
+}
