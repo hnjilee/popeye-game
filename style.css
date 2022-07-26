@@ -18,6 +18,9 @@
   --wieght-semi-bold: 600;
   --weight-regular: 400;
 
+  /* Size */
+  --size-plate: 35rem;
+
   /* Border */
   --border: solid 3px var(--color-black);
   --border-radius: 4px;
@@ -37,6 +40,8 @@ body {
   justify-content: center;
   align-items: center;
   gap: 2em;
+  height: 100vh;
+  margin: 0;
   background-color: var(--color-blue);
 }
 
@@ -109,4 +114,14 @@ button {
   width: 70%;
   height: var(--font-regular);
   background-color: var(--color-red);
+}
+
+/* Plate */
+.playground__plate {
+  background-color: var(--color-brown);
+}
+
+.plate__img {
+  width: var(--size-plate);
+  height: var(--size-plate);
 }
