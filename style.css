@@ -15,7 +15,7 @@
   --font-regular: 1.25rem;
 
   /* Font weight */
-  --wieght-semi-bold: 600;
+  --wieght-bold: 700;
   --weight-regular: 400;
 
   /* Size */
@@ -124,4 +124,29 @@ button {
 .plate__img {
   width: var(--size-plate);
   height: var(--size-plate);
+}
+
+/* Status */
+.status {
+  width: 28rem;
+  height: 49rem;
+  padding: 2em;
+  text-align: center;
+}
+
+.status__header {
+  font-size: var(--font-medium);
+  font-weight: var(--wieght-bold);
+  color: var(--color-black);
+}
+
+.status__popeye {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.popeye__img {
+  max-width: 100%;
+  max-height: 100%;
 }
