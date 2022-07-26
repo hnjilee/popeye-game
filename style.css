@@ -17,6 +17,10 @@
   /* Font weight */
   --wieght-semi-bold: 600;
   --weight-regular: 400;
+
+  /* Border */
+  --border: solid 3px var(--color-black);
+  --border-radius: 4px;
 }
 
 * {
@@ -26,4 +30,83 @@
 body,
 button {
   font-family: 'Nunito', sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+  background-color: var(--color-blue);
+}
+
+button {
+  outline: none;
+  cursor: pointer;
+}
+
+/* Common */
+.container {
+  padding: 1em;
+  border: var(--border);
+  border-radius: calc(var(--border-radius) * 2);
+  background: var(--color-white);
+}
+
+.btn {
+  padding: 0.5em;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  background-color: var(--color-yellow);
+  font-size: var(--font-regular);
+  font-weight: var(--weight-regular);
+  color: var(--color-black);
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+/* Playground */
+.playground {
+  padding: 2em;
+}
+
+/* Progress */
+.playground__progress {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.playground__btn {
+  white-space: nowrap;
+}
+
+.playground__timer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1em;
+  margin-left: 1em;
+  background-color: var(--color-grey);
+}
+
+.timer__number {
+  font-size: var(--font-regular);
+  font-weight: var(--weight-regular);
+  color: var(--color-black);
+}
+
+.timer__bar {
+  width: 100%;
+  height: var(--font-regular);
+  margin-left: 0.5em;
+  background-color: var(--color-white);
+}
+
+.timer__bar-value {
+  width: 70%;
+  height: var(--font-regular);
+  background-color: var(--color-red);
 }
