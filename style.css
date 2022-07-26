@@ -11,11 +11,11 @@
 
   /* Font size */
   --font-large: 2.5rem;
-  --font-medium: 1.75rem;
-  --font-regular: 1.25rem;
+  --font-medium: 2rem;
+  --font-regular: 1.5rem;
 
   /* Font weight */
-  --wieght-bold: 700;
+  --weight-bold: 700;
   --weight-regular: 400;
 
   /* Size */
@@ -23,7 +23,7 @@
 
   /* Border */
   --border: solid 3px var(--color-black);
-  --border-radius: 4px;
+  --border-radius: 8px;
 }
 
 * {
@@ -36,6 +36,7 @@ button {
 }
 
 body {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,7 +55,7 @@ button {
 .container {
   padding: 1em;
   border: var(--border);
-  border-radius: calc(var(--border-radius) * 2);
+  border-radius: var(--border-radius);
   background: var(--color-white);
 }
 
@@ -66,10 +67,11 @@ button {
   font-size: var(--font-regular);
   font-weight: var(--weight-regular);
   color: var(--color-black);
+  transition: all 200ms linear;
 }
 
 .btn:hover {
-  opacity: 0.8;
+  transform: scale(1.05);
 }
 
 /* Playground */
@@ -136,7 +138,7 @@ button {
 
 .status__header {
   font-size: var(--font-medium);
-  font-weight: var(--wieght-bold);
+  font-weight: var(--weight-bold);
   color: var(--color-black);
 }
 
@@ -149,4 +151,27 @@ button {
 .popeye__img {
   max-width: 100%;
   max-height: 100%;
+}
+
+/* Pop-up */
+.pop-up {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 3em;
+  background-color: var(--color-blue);
+}
+
+.pop-up__message {
+  margin-top: 0;
+  font-size: var(--font-medium);
+  font-weight: var(--weight-bold);
+  color: var(--color-black);
+}
+
+.pop-up__btn {
+  margin: 0 0.1em;
 }
