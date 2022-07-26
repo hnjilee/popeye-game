@@ -24,5 +24,35 @@
     <link rel="stylesheet" href="style.css" />
     <script src="main.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <!-- Playground -->
+    <main class="playground">
+      <!-- Progress -->
+      <section class="playground__progress">
+        <button class="playground__btn">
+          <i class="fa-solid fa-play"></i>
+          Start
+        </button>
+        <div class="playground__timer">
+          <span class="timer__number">00:00</span>
+          <div class="timer__bar">
+            <div class="timer__bar-value"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Plate -->
+      <section class="playground__plate">
+        <img src="images/plate.png" alt="plate" />
+      </section>
+    </main>
+
+    <!-- Status -->
+    <aside class="status">
+      <header class="status__header">Popeye the Sailor</header>
+      <div class="status__popeye">
+        <img src="images/default.png" alt="default" class="status__default" />
+      </div>
+    </aside>
+  </body>
 </html>
