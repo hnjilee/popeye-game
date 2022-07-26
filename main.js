@@ -10,17 +10,43 @@ const timerNumber = document.querySelector('.timer__number');
 const timerBarValue = document.querySelector('.timer__bar-value');
 const plate = document.querySelector('.playground__plate');
 const plateRect = plate.getBoundingClientRect();
+const popeyeImg = document.querySelector('.popeye__img');
+const popUp = document.querySelector('.pop-up');
+const popUpMessage = document.querySelector('.pop-up__message');
 
-playgroundBtn.addEventListener('click', () => start());
+let started = false;
+let timer;
+let counter = 0;
+
+playgroundBtn.addEventListener('click', () => {
+  if (!started) {
+    start();
+  } else {
+    stop();
+  }
+});
 
 function start() {
+  started = true;
   switchBtn();
   startTimer();
   initPlate();
 }
 
+function stop(reason) {
+  started = false;
+  showPopUp(reason);
+  disableBtn();
+  stopTimer();
+  changePopeye(reason);
+}
+
 function switchBtn() {
   playgroundBtn.innerHTML = '<i class="fa-solid fa-stop"></i> Stop';
+}
+
+function disableBtn() {
+  playgroundBtn.setAttribute('disabled', true);
 }
 
 function startTimer() {
@@ -30,7 +56,7 @@ function startTimer() {
   updateTimerNumber(remainingSeconds);
   updateTimerBar(timeLimitInSec, remainingSeconds);
 
-  const timer = setInterval(() => {
+  timer = setInterval(() => {
     updateTimerNumber(--remainingSeconds);
     updateTimerBar(timeLimitInSec, remainingSeconds);
     if (remainingSeconds > 0) {
@@ -56,6 +82,10 @@ function formatTime(seconds) {
   return `${formattedMin}:${formattedSec}`;
 }
 
+function stopTimer() {
+  clearInterval(timer);
+}
+
 function initPlate() {
   displayItems('spinach', NUM_OF_SPIANACH);
   displayItems('poison', NUM_OF_POISON);
@@ -66,6 +96,7 @@ function displayItems(itemName, numOfItems) {
     const item = document.createElement('img');
     item.setAttribute('src', `images/${itemName}.png`);
     item.setAttribute('class', 'playground__item');
+    item.classList.add(itemName);
 
     const x = random(0, plateRect.width - ITEM_SIZE);
     const y = random(0, plateRect.height - ITEM_SIZE);
@@ -78,4 +109,63 @@ function displayItems(itemName, numOfItems) {
 
 function random(min, max) {
   return Math.trunc(Math.random() * (max - min + 1) + min);
+}
+
+plate.addEventListener('click', e => {
+  if (!started) {
+    return;
+  }
+
+  const target = e.target;
+  if (!target.classList.contains('playground__item')) {
+    return;
+  }
+
+  if (target.classList.contains('spinach')) {
+    onSpinachClick(target);
+  } else {
+    stop('lose');
+  }
+});
+
+function onSpinachClick(target) {
+  target.remove();
+  counter++;
+  scalePopeye();
+  if (counter < NUM_OF_SPIANACH) {
+    return;
+  }
+  stop('win');
+}
+
+function scalePopeye() {
+  popeyeImg.style.width = `${50 + (counter / NUM_OF_SPIANACH) * 50}%`;
+  popeyeImg.style.height = `${50 + (counter / NUM_OF_SPIANACH) * 50}%`;
+}
+
+function showPopUp(reason) {
+  fillPopUpMessage(reason);
+  popUp.classList.remove('pop-up--hidden');
+}
+
+function fillPopUpMessage(reason) {
+  switch (reason) {
+    case 'win':
+      popUpMessage.textContent = '💪 I GOT STRONG 💪';
+      break;
+    case 'lose':
+      popUpMessage.textContent = '👻 I AM DEAD 👻';
+      break;
+    case 'replay':
+      popUpMessage.textContent = 'Wanna replay?';
+      break;
+    default:
+      throw new Error('not handled reason');
+  }
+}
+
+function changePopeye(reason) {
+  popeyeImg.style.width = '100%';
+  popeyeImg.style.heignt = '100%';
+  popeyeImg.setAttribute('src', `images/${reason}.png`);
 }
