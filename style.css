@@ -172,11 +172,6 @@ button {
 }
 
 .popeye__img {
-  width: 100%;
-  height: 100%;
-}
-
-.popeye__default {
   width: 50%;
   height: 50%;
 }

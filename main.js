@@ -13,6 +13,8 @@ const plateRect = plate.getBoundingClientRect();
 const popeyeImg = document.querySelector('.popeye__img');
 const popUp = document.querySelector('.pop-up');
 const popUpMessage = document.querySelector('.pop-up__message');
+const replayBtn = document.querySelector('.pop-up__replay');
+const cancelBtn = document.querySelector('.pop-up__cancel');
 
 let started = false;
 let timer;
@@ -26,9 +28,18 @@ playgroundBtn.addEventListener('click', () => {
   }
 });
 
+replayBtn.addEventListener('click', () => {
+  reset();
+  start();
+});
+
+cancelBtn.addEventListener('click', () => {
+  reset();
+});
+
 function start() {
   started = true;
-  switchBtn();
+  showStopBtn();
   startTimer();
   initPlate();
 }
@@ -41,12 +52,26 @@ function stop(reason) {
   changePopeye(reason);
 }
 
-function switchBtn() {
+function reset() {
+  hidePopUp();
+  resetBtn();
+  resetTimer();
+  clearPlate();
+  counter = 0;
+  resetPopeye();
+}
+
+function showStopBtn() {
   playgroundBtn.innerHTML = '<i class="fa-solid fa-stop"></i> Stop';
 }
 
 function disableBtn() {
   playgroundBtn.setAttribute('disabled', true);
+}
+
+function resetBtn() {
+  playgroundBtn.removeAttribute('disabled');
+  playgroundBtn.innerHTML = '<i class="fa-solid fa-play"></i> Play';
 }
 
 function startTimer() {
@@ -84,6 +109,11 @@ function formatTime(seconds) {
 
 function stopTimer() {
   clearInterval(timer);
+}
+
+function resetTimer() {
+  timerNumber.textContent = '00:00';
+  timerBarValue.style.width = '0';
 }
 
 function initPlate() {
@@ -143,6 +173,22 @@ function scalePopeye() {
   popeyeImg.style.height = `${50 + (counter / NUM_OF_SPIANACH) * 50}%`;
 }
 
+function changePopeye(reason) {
+  popeyeImg.style.width = '100%';
+  popeyeImg.style.height = '100%';
+  popeyeImg.setAttribute('src', `images/${reason}.png`);
+}
+
+function resetPopeye() {
+  popeyeImg.removeAttribute('style');
+  popeyeImg.setAttribute('src', 'images/default.png');
+}
+
+function clearPlate() {
+  plate.innerHTML =
+    '<img src="images/plate.png" alt="plate" class="plate__img" />';
+}
+
 function showPopUp(reason) {
   fillPopUpMessage(reason);
   popUp.classList.remove('pop-up--hidden');
@@ -164,7 +210,6 @@ function fillPopUpMessage(reason) {
   }
 }
 
-function changePopeye(reason) {
-  popeyeImg.classList.remove('popeye__default');
-  popeyeImg.setAttribute('src', `images/${reason}.png`);
+function hidePopUp() {
+  popUp.classList.add('pop-up--hidden');
 }
