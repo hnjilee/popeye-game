@@ -1,26 +1,26 @@
 /* Global */
 :root {
   /* Color */
-  --color-blue: #006480;
+  --color-blue: #0179aa;
   --color-white: #ffffff;
   --color-black: #000000;
   --color-black-transparent: rgba(0, 0, 0, 0.9);
-  --color-grey: #b5b5b5;
+  --color-grey: #d9d9d9;
   --color-brown: #a84a0a;
-  --color-yellow: #ffd112;
+  --color-yellow: #fdb827;
   --color-red: #ed1820;
 
   /* Font size */
   --font-large: 3rem;
-  --font-medium: 2rem;
-  --font-regular: 1.5rem;
+  --font-medium: 1.75rem;
+  --font-regular: 1.25rem;
 
   /* Font weight */
   --weight-bold: 700;
   --weight-regular: 400;
 
   /* Size */
-  --size-plate: 35rem;
+  --size-plate: 30rem;
   --size-logo: 12rem;
 
   /* Border */
@@ -58,7 +58,7 @@ button {
 
 /* Common */
 .container {
-  padding: 1em;
+  padding: 2em;
   border: var(--border);
   border-radius: var(--border-radius);
   background: var(--color-white);
@@ -67,6 +67,7 @@ button {
 .btn {
   padding: 0.5em;
   border: var(--border);
+  border-width: 2px;
   border-radius: var(--border-radius);
   background-color: var(--color-yellow);
   font-size: var(--font-regular);
@@ -81,15 +82,11 @@ button {
 }
 
 /* Playground */
-.playground {
-  padding: 2em;
-}
-
 /* Progress */
 .playground__progress {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  padding: 1em;
   margin-bottom: 1em;
 }
 
@@ -99,11 +96,16 @@ button {
   opacity: 0.7;
 }
 
+.playground__btn:disabled:hover {
+  transform: none;
+}
+
 .playground__timer {
   display: flex;
   align-items: center;
-  width: 78%;
-  padding: 1em;
+  width: 100%;
+  padding: 0.75em;
+  margin-left: 1em;
   background-color: var(--color-grey);
 }
 
@@ -139,7 +141,6 @@ button {
 
 .playground__item {
   position: absolute;
-  cursor: pointer;
   transition: transform var(--animation-duration) linear;
 }
 
@@ -151,10 +152,9 @@ button {
 .status {
   display: flex;
   flex-direction: column;
-  width: 28rem;
-  height: 49rem;
-  padding: 2em;
   text-align: center;
+  width: 24rem;
+  height: 45.625rem;
 }
 
 .status__header {
@@ -172,10 +172,13 @@ button {
 }
 
 .popeye__img {
+  width: 100%;
+  height: 100%;
+}
+
+.popeye__default {
   width: 50%;
   height: 50%;
-  max-width: 100%;
-  max-height: 100%;
 }
 
 /* Pop-up */
@@ -201,7 +204,7 @@ button {
 }
 
 .pop-up__btn {
-  margin: 0 0.1em;
+  margin: 0 0.25em;
 }
 
 /* Instruction */

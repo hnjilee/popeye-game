@@ -151,10 +151,10 @@ function showPopUp(reason) {
 function fillPopUpMessage(reason) {
   switch (reason) {
     case 'win':
-      popUpMessage.textContent = '💪 I GOT STRONG 💪';
+      popUpMessage.textContent = 'I GOT STRONG 💪';
       break;
     case 'lose':
-      popUpMessage.textContent = '👻 I AM DEAD 👻';
+      popUpMessage.textContent = 'I AM DEAD 👻';
       break;
     case 'replay':
       popUpMessage.textContent = 'Wanna replay?';
@@ -165,7 +165,6 @@ function fillPopUpMessage(reason) {
 }
 
 function changePopeye(reason) {
-  popeyeImg.style.width = '100%';
-  popeyeImg.style.heignt = '100%';
+  popeyeImg.classList.remove('popeye__default');
   popeyeImg.setAttribute('src', `images/${reason}.png`);
 }
