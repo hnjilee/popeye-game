@@ -1,3 +1,4 @@
+import Status from './status.js';
 import PopUp from './pop-up.js';
 import * as Sound from './audio.js';
 
@@ -12,12 +13,12 @@ const timerNumber = document.querySelector('.timer__number');
 const timerBarValue = document.querySelector('.timer__bar-value');
 const plate = document.querySelector('.playground__plate');
 const plateRect = plate.getBoundingClientRect();
-const popeyeImg = document.querySelector('.popeye__img');
 
 let started = false;
 let timer;
 let counter = 0;
 
+const popeyeStatus = new Status();
 const popUp = new PopUp();
 
 instruction.addEventListener('click', () =>
@@ -52,7 +53,7 @@ function stop(reason) {
   popUp.show(reason);
   disableBtn();
   stopTimer();
-  changePopeye(reason);
+  popeyeStatus.change(reason);
   Sound.pauseBackground();
 }
 
@@ -62,7 +63,7 @@ function reset() {
   resetTimer();
   clearPlate();
   counter = 0;
-  resetPopeye();
+  popeyeStatus.reset();
 }
 
 function showStopBtn() {
@@ -169,30 +170,11 @@ function onSpinachClick(target) {
   Sound.playEating();
   target.remove();
   counter++;
-  scalePopeye();
+  popeyeStatus.scale(counter, NUM_OF_SPIANACH);
   if (counter < NUM_OF_SPIANACH) {
     return;
   }
   stop('win');
-}
-
-function scalePopeye() {
-  popeyeImg.style.width = `${50 + (counter / NUM_OF_SPIANACH) * 50}%`;
-  popeyeImg.style.height = `${50 + (counter / NUM_OF_SPIANACH) * 50}%`;
-}
-
-function changePopeye(reason) {
-  if (reason === 'replay') {
-    return;
-  }
-  popeyeImg.style.width = '100%';
-  popeyeImg.style.height = '100%';
-  popeyeImg.setAttribute('src', `images/${reason}.png`);
-}
-
-function resetPopeye() {
-  popeyeImg.removeAttribute('style');
-  popeyeImg.setAttribute('src', 'images/default.png');
 }
 
 function clearPlate() {
