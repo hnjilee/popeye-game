@@ -1,4 +1,5 @@
-'use strict';
+import PopUp from './pop-up.js';
+import * as Sound from './audio.js';
 
 const TIME_LIMIT_IN_SEC = 5;
 const NUM_OF_SPIANACH = 3;
@@ -12,20 +13,12 @@ const timerBarValue = document.querySelector('.timer__bar-value');
 const plate = document.querySelector('.playground__plate');
 const plateRect = plate.getBoundingClientRect();
 const popeyeImg = document.querySelector('.popeye__img');
-const popUp = document.querySelector('.pop-up');
-const popUpMessage = document.querySelector('.pop-up__message');
-const replayBtn = document.querySelector('.pop-up__replay');
-const cancelBtn = document.querySelector('.pop-up__cancel');
 
 let started = false;
 let timer;
 let counter = 0;
 
-const audioBackground = new Audio('audio/background.m4a');
-const audioEating = new Audio('audio/eating.wav');
-const audioWin = new Audio('audio/win.wav');
-const audioLose = new Audio('audio/lose.wav');
-const audioReplay = new Audio('audio/replay.wav');
+const popUp = new PopUp();
 
 instruction.addEventListener('click', () =>
   instruction.classList.add('instruction--hidden')
@@ -39,34 +32,32 @@ playgroundBtn.addEventListener('click', () => {
   }
 });
 
-replayBtn.addEventListener('click', () => {
+popUp.setReplayClickListener(() => {
   reset();
   start();
 });
 
-cancelBtn.addEventListener('click', () => {
-  reset();
-});
+popUp.setCancelClickListener(reset);
 
 function start() {
   started = true;
   showStopBtn();
   startTimer();
   initPlate();
-  playAudio(audioBackground);
+  Sound.playBackground();
 }
 
 function stop(reason) {
   started = false;
-  showPopUp(reason);
+  popUp.show(reason);
   disableBtn();
   stopTimer();
   changePopeye(reason);
-  audioBackground.pause();
+  Sound.pauseBackground();
 }
 
 function reset() {
-  hidePopUp();
+  popUp.hide();
   resetBtn();
   resetTimer();
   clearPlate();
@@ -163,11 +154,11 @@ plate.addEventListener('click', e => {
   }
 
   const target = e.target;
-  if (!target.classList.contains('playground__item')) {
+  if (!target.matches('.playground__item')) {
     return;
   }
 
-  if (target.classList.contains('spinach')) {
+  if (target.matches('.spinach')) {
     onSpinachClick(target);
   } else {
     stop('lose');
@@ -175,7 +166,7 @@ plate.addEventListener('click', e => {
 });
 
 function onSpinachClick(target) {
-  playAudio(audioEating);
+  Sound.playEating();
   target.remove();
   counter++;
   scalePopeye();
@@ -207,37 +198,4 @@ function resetPopeye() {
 function clearPlate() {
   plate.innerHTML =
     '<img src="images/plate.png" alt="plate" class="plate__img" />';
-}
-
-function showPopUp(reason) {
-  fillPopUpMessage(reason);
-  popUp.classList.remove('pop-up--hidden');
-}
-
-function fillPopUpMessage(reason) {
-  switch (reason) {
-    case 'win':
-      popUpMessage.textContent = 'I GOT STRONG 💪';
-      playAudio(audioWin);
-      break;
-    case 'lose':
-      popUpMessage.textContent = 'I AM DEAD 👻';
-      playAudio(audioLose);
-      break;
-    case 'replay':
-      popUpMessage.textContent = 'Wanna replay?';
-      playAudio(audioReplay);
-      break;
-    default:
-      throw new Error('not handled reason');
-  }
-}
-
-function hidePopUp() {
-  popUp.classList.add('pop-up--hidden');
-}
-
-function playAudio(audio) {
-  audio.currentTime = 0;
-  audio.play();
 }
