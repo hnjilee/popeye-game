@@ -24,7 +24,7 @@ playgroundBtn.addEventListener('click', () => {
   if (!started) {
     start();
   } else {
-    stop();
+    stop('replay');
   }
 });
 
@@ -87,7 +87,10 @@ function startTimer() {
     if (remainingSeconds > 0) {
       return;
     }
-    clearInterval(timer);
+    stopTimer();
+    if (counter < NUM_OF_SPIANACH) {
+      stop('lose');
+    }
   }, 1000);
 }
 
@@ -174,6 +177,9 @@ function scalePopeye() {
 }
 
 function changePopeye(reason) {
+  if (reason === 'replay') {
+    return;
+  }
   popeyeImg.style.width = '100%';
   popeyeImg.style.height = '100%';
   popeyeImg.setAttribute('src', `images/${reason}.png`);
