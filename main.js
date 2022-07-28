@@ -20,6 +20,12 @@ let started = false;
 let timer;
 let counter = 0;
 
+const audioBackground = new Audio('audio/background.m4a');
+const audioEating = new Audio('audio/eating.wav');
+const audioWin = new Audio('audio/win.wav');
+const audioLose = new Audio('audio/lose.wav');
+const audioReplay = new Audio('audio/replay.wav');
+
 playgroundBtn.addEventListener('click', () => {
   if (!started) {
     start();
@@ -42,6 +48,7 @@ function start() {
   showStopBtn();
   startTimer();
   initPlate();
+  playAudio(audioBackground);
 }
 
 function stop(reason) {
@@ -50,6 +57,7 @@ function stop(reason) {
   disableBtn();
   stopTimer();
   changePopeye(reason);
+  audioBackground.pause();
 }
 
 function reset() {
@@ -162,6 +170,7 @@ plate.addEventListener('click', e => {
 });
 
 function onSpinachClick(target) {
+  playAudio(audioEating);
   target.remove();
   counter++;
   scalePopeye();
@@ -204,12 +213,15 @@ function fillPopUpMessage(reason) {
   switch (reason) {
     case 'win':
       popUpMessage.textContent = 'I GOT STRONG 💪';
+      playAudio(audioWin);
       break;
     case 'lose':
       popUpMessage.textContent = 'I AM DEAD 👻';
+      playAudio(audioLose);
       break;
     case 'replay':
       popUpMessage.textContent = 'Wanna replay?';
+      playAudio(audioReplay);
       break;
     default:
       throw new Error('not handled reason');
@@ -218,4 +230,9 @@ function fillPopUpMessage(reason) {
 
 function hidePopUp() {
   popUp.classList.add('pop-up--hidden');
+}
+
+function playAudio(audio) {
+  audio.currentTime = 0;
+  audio.play();
 }
