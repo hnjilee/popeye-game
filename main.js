@@ -5,6 +5,7 @@ const NUM_OF_SPIANACH = 3;
 const NUM_OF_POISON = 3;
 const ITEM_SIZE = 50;
 
+const instruction = document.querySelector('.instruction');
 const playgroundBtn = document.querySelector('.playground__btn');
 const timerNumber = document.querySelector('.timer__number');
 const timerBarValue = document.querySelector('.timer__bar-value');
@@ -25,6 +26,10 @@ const audioEating = new Audio('audio/eating.wav');
 const audioWin = new Audio('audio/win.wav');
 const audioLose = new Audio('audio/lose.wav');
 const audioReplay = new Audio('audio/replay.wav');
+
+instruction.addEventListener('click', () =>
+  instruction.classList.add('instruction--hidden')
+);
 
 playgroundBtn.addEventListener('click', () => {
   if (!started) {
