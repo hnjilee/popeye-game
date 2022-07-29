@@ -1,3 +1,4 @@
+import Plate from './plate.js';
 import Status from './status.js';
 import PopUp from './pop-up.js';
 import * as Sound from './audio.js';
@@ -11,14 +12,13 @@ const instruction = document.querySelector('.instruction');
 const playgroundBtn = document.querySelector('.playground__btn');
 const timerNumber = document.querySelector('.timer__number');
 const timerBarValue = document.querySelector('.timer__bar-value');
-const plate = document.querySelector('.playground__plate');
-const plateRect = plate.getBoundingClientRect();
 
 let started = false;
 let timer;
 let counter = 0;
 
-const popeyeStatus = new Status();
+const plate = new Plate(NUM_OF_SPIANACH, NUM_OF_POISON, ITEM_SIZE);
+const popeyeStatus = new Status(NUM_OF_SPIANACH);
 const popUp = new PopUp();
 
 instruction.addEventListener('click', () =>
@@ -44,7 +44,7 @@ function start() {
   started = true;
   showStopBtn();
   startTimer();
-  initPlate();
+  plate.init();
   Sound.playBackground();
 }
 
@@ -61,7 +61,7 @@ function reset() {
   popUp.hide();
   resetBtn();
   resetTimer();
-  clearPlate();
+  plate.clear();
   counter = 0;
   popeyeStatus.reset();
 }
@@ -124,60 +124,21 @@ function resetTimer() {
   timerBarValue.style.width = '0';
 }
 
-function initPlate() {
-  displayItems('spinach', NUM_OF_SPIANACH);
-  displayItems('poison', NUM_OF_POISON);
-}
-
-function displayItems(itemName, numOfItems) {
-  for (let i = 0; i < numOfItems; i++) {
-    const item = document.createElement('img');
-    item.setAttribute('src', `images/${itemName}.png`);
-    item.setAttribute('class', 'playground__item');
-    item.classList.add(itemName);
-
-    const x = random(0, plateRect.width - ITEM_SIZE);
-    const y = random(0, plateRect.height - ITEM_SIZE);
-    item.style.top = `${y}px`;
-    item.style.left = `${x}px`;
-
-    plate.append(item);
-  }
-}
-
-function random(min, max) {
-  return Math.trunc(Math.random() * (max - min + 1) + min);
-}
-
-plate.addEventListener('click', e => {
+plate.setItemClickListener((target, itemName) => {
   if (!started) {
     return;
   }
 
-  const target = e.target;
-  if (!target.matches('.playground__item')) {
-    return;
-  }
-
-  if (target.matches('.spinach')) {
-    onSpinachClick(target);
+  if (itemName === 'spinach') {
+    Sound.playEating();
+    target.remove();
+    counter++;
+    popeyeStatus.scale(counter);
+    if (counter < NUM_OF_SPIANACH) {
+      return;
+    }
+    stop('win');
   } else {
     stop('lose');
   }
 });
-
-function onSpinachClick(target) {
-  Sound.playEating();
-  target.remove();
-  counter++;
-  popeyeStatus.scale(counter, NUM_OF_SPIANACH);
-  if (counter < NUM_OF_SPIANACH) {
-    return;
-  }
-  stop('win');
-}
-
-function clearPlate() {
-  plate.innerHTML =
-    '<img src="images/plate.png" alt="plate" class="plate__img" />';
-}

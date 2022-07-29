@@ -23,11 +23,11 @@ export default class PopUp {
   }
 
   show(reason) {
-    this.fillMessage(reason);
+    this.#fillMessage(reason);
     this.popUp.classList.remove('pop-up--hidden');
   }
 
-  fillMessage(reason) {
+  #fillMessage(reason) {
     switch (reason) {
       case 'win':
         this.message.textContent = 'I GOT STRONG 💪';

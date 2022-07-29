@@ -1,11 +1,12 @@
 export default class Status {
-  constructor() {
+  constructor(numOfSpinach) {
+    this.numOfSpinach = numOfSpinach;
     this.popeyeImg = document.querySelector('.popeye__img');
   }
 
-  scale(counter, numOfSpinach) {
-    this.popeyeImg.style.width = `${50 + (counter / numOfSpinach) * 50}%`;
-    this.popeyeImg.style.height = `${50 + (counter / numOfSpinach) * 50}%`;
+  scale(counter) {
+    this.popeyeImg.style.width = `${50 + (counter / this.numOfSpinach) * 50}%`;
+    this.popeyeImg.style.height = `${50 + (counter / this.numOfSpinach) * 50}%`;
   }
 
   change(reason) {
