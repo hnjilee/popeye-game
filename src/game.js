@@ -9,7 +9,38 @@ export const Reason = Object.freeze({
   replay: 'replay',
 });
 
-export class Game {
+export class GameBuilder {
+  withTimeLimitInSec(timeLimitInSec) {
+    this.timeLimitInSec = timeLimitInSec;
+    return this;
+  }
+
+  withNumOfSpinach(numOfSpinach) {
+    this.numOfSpinach = numOfSpinach;
+    return this;
+  }
+
+  withNumOfPoison(numOfPoison) {
+    this.numOfPoison = numOfPoison;
+    return this;
+  }
+
+  withItemSize(itemSize) {
+    this.itemSize = itemSize;
+    return this;
+  }
+
+  build() {
+    return new Game(
+      this.timeLimitInSec,
+      this.numOfSpinach,
+      this.numOfPoison,
+      this.itemSize
+    );
+  }
+}
+
+class Game {
   constructor(timeLimitInSec, numOfSpinach, numOfPoison, itemSize) {
     this.timeLimitInSec = timeLimitInSec;
     this.numOfSpinach = numOfSpinach;

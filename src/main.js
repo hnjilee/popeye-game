@@ -1,17 +1,13 @@
-import { Game } from './game.js';
+import { GameBuilder } from './game.js';
 import PopUp from './pop-up.js';
 
-const TIME_LIMIT_IN_SEC = 5;
-const NUM_OF_SPIANACH = 3;
-const NUM_OF_POISON = 3;
-const ITEM_SIZE = 50;
+const popeyeGame = new GameBuilder()
+  .withTimeLimitInSec(5)
+  .withNumOfSpinach(3)
+  .withNumOfPoison(3)
+  .withItemSize(50)
+  .build();
 
-const popeyeGame = new Game(
-  TIME_LIMIT_IN_SEC,
-  NUM_OF_SPIANACH,
-  NUM_OF_POISON,
-  ITEM_SIZE
-);
 const popUp = new PopUp();
 const instruction = document.querySelector('.instruction');
 
