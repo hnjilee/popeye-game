@@ -1,3 +1,4 @@
+import { Reason } from './game.js';
 import * as Sound from './audio.js';
 
 export default class PopUp {
@@ -29,15 +30,15 @@ export default class PopUp {
 
   #fillMessage(reason) {
     switch (reason) {
-      case 'win':
+      case Reason.win:
         this.message.textContent = 'I GOT STRONG 💪';
         Sound.playWin();
         break;
-      case 'lose':
+      case Reason.lose:
         this.message.textContent = 'I AM DEAD 👻';
         Sound.playLose();
         break;
-      case 'replay':
+      case Reason.replay:
         this.message.textContent = 'Wanna replay?';
         Sound.playReplay();
         break;

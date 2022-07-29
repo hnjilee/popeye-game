@@ -1,4 +1,9 @@
-export default class Plate {
+export const Item = Object.freeze({
+  spinach: 'spinach',
+  poison: 'poison',
+});
+
+export class Plate {
   constructor(numOfSpinach, numOfPoison, itemSize) {
     this.numOfSpinach = numOfSpinach;
     this.numOfPoison = numOfPoison;
@@ -19,15 +24,15 @@ export default class Plate {
     }
 
     if (target.matches('.spinach')) {
-      this.onItemClick && this.onItemClick(target, 'spinach');
+      this.onItemClick && this.onItemClick(target, Item.spinach);
     } else {
-      this.onItemClick && this.onItemClick(target, 'poison');
+      this.onItemClick && this.onItemClick(target, Item.poison);
     }
   };
 
   init() {
-    this.#displayItems('spinach', this.numOfSpinach);
-    this.#displayItems('poison', this.numOfPoison);
+    this.#displayItems(Item.spinach, this.numOfSpinach);
+    this.#displayItems(Item.poison, this.numOfPoison);
   }
 
   #displayItems(itemName, numOfItems) {

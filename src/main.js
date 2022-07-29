@@ -1,4 +1,4 @@
-import Game from './game.js';
+import { Game } from './game.js';
 import PopUp from './pop-up.js';
 
 const TIME_LIMIT_IN_SEC = 5;

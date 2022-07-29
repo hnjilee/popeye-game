@@ -1,9 +1,15 @@
 import Progress from './progress.js';
-import Plate from './plate.js';
+import { Plate, Item } from './plate.js';
 import Status from './status.js';
 import * as Sound from './audio.js';
 
-export default class Game {
+export const Reason = Object.freeze({
+  win: 'win',
+  lose: 'lose',
+  replay: 'replay',
+});
+
+export class Game {
   constructor(timeLimitInSec, numOfSpinach, numOfPoison, itemSize) {
     this.timeLimitInSec = timeLimitInSec;
     this.numOfSpinach = numOfSpinach;
@@ -15,7 +21,7 @@ export default class Game {
 
     this.progress = new Progress(this.timeLimitInSec);
     this.progress.setBtnClickListener(this.onBtnClick);
-    this.progress.setTimeLimitExceedListener(() => this.stop('lose'));
+    this.progress.setTimeLimitExceedListener(() => this.stop(Reason.lose));
 
     this.plate = new Plate(this.numOfSpinach, this.numOfPoison, this.itemSize);
     this.plate.setItemClickListener(this.onItemClick);
@@ -35,7 +41,7 @@ export default class Game {
     if (!this.started) {
       this.start();
     } else {
-      this.stop('replay');
+      this.stop(Reason.replay);
     }
   };
 
@@ -44,7 +50,7 @@ export default class Game {
       return;
     }
 
-    if (itemName === 'spinach') {
+    if (itemName === Item.spinach) {
       Sound.playEating();
       target.remove();
       this.counter++;
@@ -52,9 +58,9 @@ export default class Game {
       if (this.counter < this.numOfSpinach) {
         return;
       }
-      this.stop('win');
+      this.stop(Reason.win);
     } else {
-      this.stop('lose');
+      this.stop(Reason.lose);
     }
   };
 

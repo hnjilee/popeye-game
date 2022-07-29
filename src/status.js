@@ -1,3 +1,5 @@
+import { Reason } from './game.js';
+
 export default class Status {
   constructor(numOfSpinach) {
     this.numOfSpinach = numOfSpinach;
@@ -10,7 +12,7 @@ export default class Status {
   }
 
   change(reason) {
-    if (reason === 'replay') {
+    if (reason === Reason.replay) {
       return;
     }
     this.popeyeImg.style.width = '100%';
