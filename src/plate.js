@@ -37,8 +37,8 @@ export default class Plate {
       item.setAttribute('class', 'playground__item');
       item.classList.add(itemName);
 
-      const x = Plate.random(0, this.plateRect.width - this.itemSize);
-      const y = Plate.random(0, this.plateRect.height - this.itemSize);
+      const x = Plate.#random(0, this.plateRect.width - this.itemSize);
+      const y = Plate.#random(0, this.plateRect.height - this.itemSize);
       item.style.top = `${y}px`;
       item.style.left = `${x}px`;
 
@@ -46,7 +46,7 @@ export default class Plate {
     }
   }
 
-  static random(min, max) {
+  static #random(min, max) {
     return Math.trunc(Math.random() * (max - min + 1) + min);
   }
 
