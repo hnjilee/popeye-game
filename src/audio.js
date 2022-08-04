@@ -1,8 +1,8 @@
-const background = new Audio('../audio/background.m4a');
-const eating = new Audio('../audio/eating.wav');
-const win = new Audio('../audio/win.wav');
-const lose = new Audio('../audio/lose.wav');
-const replay = new Audio('../audio/replay.wav');
+const background = new Audio('audio/background.m4a');
+const eating = new Audio('audio/eating.wav');
+const win = new Audio('audio/win.wav');
+const lose = new Audio('audio/lose.wav');
+const replay = new Audio('audio/replay.wav');
 
 export function playBackground() {
   play(background);
