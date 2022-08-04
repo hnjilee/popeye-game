@@ -2,6 +2,10 @@ import { Reason } from './game.js';
 
 export default class Status {
   constructor(numOfSpinach) {
+    this.win = new Image();
+    this.win.src = 'images/win.png';
+    this.lose = new Image();
+    this.lose.src = 'images/lose.png';
     this.numOfSpinach = numOfSpinach;
     this.popeyeImg = document.querySelector('.popeye__img');
   }
