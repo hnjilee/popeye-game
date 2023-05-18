@@ -11,6 +11,13 @@
     />
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <title>Popeye Game</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
     <script
       src="https://kit.fontawesome.com/0ce04dd2fb.js"
       crossorigin="anonymous"
@@ -18,37 +25,43 @@
     ></script>
   </head>
   <body>
-    <!-- Main -->
-    <main class="main">
-      <!-- Status -->
-      <section class="status">
-        <button class="status__btn">
-          <i class="fa-solid fa-play"></i>
-          start
-        </button>
-        <div class="status__timer">
-          <span class="status__time">00:00</span>
-          <div class="status__progress">
-            <div class="status__progress-value"></div>
+    <section class="game">
+      <!-- Main -->
+      <main class="container main">
+        <!-- Status -->
+        <section class="container status">
+          <button class="btn status__btn">
+            <i class="fa-solid fa-play"></i>
+            start
+          </button>
+          <div class="status__timer">
+            <span class="status__time">00:00</span>
+            <div class="status__progress">
+              <div class="status__progress-value"></div>
+            </div>
           </div>
-        </div>
-      </section>
-      <!-- Playground -->
-      <section class="playground">
-        <img
-          src="images/plate.png"
-          alt="plate in playground"
-          class="playground__plate"
-        />
-      </section>
-    </main>
+        </section>
+        <!-- Playground -->
+        <section class="container playground">
+          <img
+            src="images/plate.png"
+            alt="plate in playground"
+            class="playground__plate"
+          />
+        </section>
+      </main>
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <h1 class="sidebar__title">Popeye the Sailor Man</h1>
-      <div class="sidebar__popeye">
-        <img src="images/popeye-default.png" alt="default popeye" />
-      </div>
-    </aside>
+      <!-- Sidebar -->
+      <aside class="container sidebar">
+        <h1 class="sidebar__title">Popeye the Sailor Man</h1>
+        <div class="sidebar__popeye">
+          <img
+            src="images/popeye-default.png"
+            alt="default popeye"
+            class="sidebar__popeye-img"
+          />
+        </div>
+      </aside>
+    </section>
   </body>
 </html>
