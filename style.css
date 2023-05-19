@@ -132,6 +132,7 @@ body {
 
 /* Playground */
 .playground {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;

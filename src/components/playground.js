@@ -18,10 +18,16 @@ export class Playground {
   }
 
   displayItems = () => {
-    const x1 = this.playgroundRect.left;
-    const x2 = this.playgroundRect.right - Playground.#ITEM_WIDTH;
-    const y1 = this.playgroundRect.top;
-    const y2 = this.playgroundRect.bottom - Playground.#ITEM_HEIGHT;
+    const x1 = 0;
+    const x2 =
+      this.playgroundRect.right -
+      this.playgroundRect.left -
+      Playground.#ITEM_WIDTH;
+    const y1 = 0;
+    const y2 =
+      this.playgroundRect.bottom -
+      this.playgroundRect.top -
+      Playground.#ITEM_HEIGHT;
 
     for (let i = 0; i < this.#numOfItems; i++) {
       this.#displayItem(Item.spinach, x1, x2, y1, y2);
