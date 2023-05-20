@@ -8,19 +8,39 @@ export function playBackground() {
   play(audioBackground);
 }
 
+export function pauseBackground() {
+  pause(audioBackground);
+}
+
 export function playSpinachClick() {
   play(audioSpinach);
 }
 
-export function playWin() {
+export function playStop(reason) {
+  switch (reason) {
+    case 'win':
+      playWin();
+      break;
+    case 'lose':
+      playLose();
+      break;
+    case 'replay':
+      playStopBtnClick();
+      break;
+    default:
+      console.log(`${reason}: not handled reason`);
+  }
+}
+
+function playWin() {
   play(audioWin);
 }
 
-export function playLose() {
+function playLose() {
   play(audioLose);
 }
 
-export function playStopBtnClick() {
+function playStopBtnClick() {
   play(audioBtn);
 }
 

@@ -1,3 +1,4 @@
+import { started } from '../main.js';
 import * as Sound from '../sound.js';
 
 const Item = Object.freeze({
@@ -29,6 +30,10 @@ export class Playground {
   };
 
   onPlaygroundClick = e => {
+    if (!started) {
+      return;
+    }
+
     const target = e.target;
     if (!target.matches('.playground__item')) {
       return;

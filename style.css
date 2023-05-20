@@ -90,6 +90,15 @@ body {
   scale: 1.1;
 }
 
+.btn:disabled {
+  background-color: var(--color-grey);
+  cursor: default;
+}
+
+.btn:disabled:hover {
+  scale: none;
+}
+
 /* Main */
 .main {
   flex: 2;
@@ -125,7 +134,7 @@ body {
 }
 
 .status__progress-value {
-  width: 70%;
+  width: 0;
   height: var(--height);
   background-color: var(--color-red);
 }

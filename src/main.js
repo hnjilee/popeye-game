@@ -7,11 +7,18 @@ import * as Sound from './sound.js';
 const TIME_LIMIT_IN_SEC = 3;
 const NUM_OF_ITMES = 3;
 
-let started = false;
+export let started = false;
 let count = 0;
 
 const gameStatus = new Status();
-gameStatus.setBtnClickListener(startGame);
+gameStatus.setBtnClickListener(() => {
+  if (!started) {
+    startGame();
+  } else {
+    stopGame('replay');
+  }
+});
+gameStatus.setTimeLimitExceeded(() => stopGame('lose'));
 
 const gamePlayground = new Playground(NUM_OF_ITMES);
 const gameCounter = new Counter(NUM_OF_ITMES);
@@ -39,5 +46,11 @@ function startGame() {
 }
 
 function stopGame(reason) {
+  started = false;
+  Sound.pauseBackground();
+  Sound.playStop(reason);
   gameModal.show(reason);
+  gameStatus.disableBtn();
+  gameStatus.stopTimer();
+  gameCounter.switchPopeye(reason);
 }

@@ -12,6 +12,18 @@ export class Counter {
         this.popeyeImg.style.width = '50%';
         this.popeyeImg.style.height = '50%';
         break;
+      case 'win':
+        this.popeyeImg.setAttribute('src', '/images/popeye-win.png');
+        break;
+      case 'lose':
+        this.popeyeImg.setAttribute('src', '/images/popeye-lose.png');
+        this.popeyeImg.style.width = '100%';
+        this.popeyeImg.style.height = 'auto';
+        break;
+      case 'replay':
+        return;
+      default:
+        console.log(`${status}: not handled status`);
     }
   };
 

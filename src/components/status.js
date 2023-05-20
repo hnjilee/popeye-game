@@ -1,13 +1,21 @@
+import { started } from '../main.js';
+
 export class Status {
+  #timer;
   constructor() {
     this.btn = document.querySelector('.status__btn');
     this.btn.addEventListener('click', () => this.onBtnClick());
     this.time = document.querySelector('.status__time');
     this.progressValue = document.querySelector('.status__progress-value');
+    this.#timer = null;
   }
 
   setBtnClickListener = onBtnClick => {
     this.onBtnClick = onBtnClick;
+  };
+
+  setTimeLimitExceeded = onTimeLimitExceeded => {
+    this.onTimeLimitExceeded = onTimeLimitExceeded;
   };
 
   switchBtn(started) {
@@ -18,18 +26,32 @@ export class Status {
     }
   }
 
+  disableBtn() {
+    this.btn.setAttribute('disabled', '');
+  }
+
   startTimer(timeLimitInSec) {
     const timeLimit = timeLimitInSec;
     let remainingTime = timeLimit;
 
-    const timer = setInterval(() => {
+    this.time.textContent = formatTime(remainingTime);
+    this.progressValue.style.width = '100%';
+
+    this.#timer = setInterval(() => {
       remainingTime--;
       this.time.textContent = formatTime(remainingTime);
       this.progressValue.style.width = `${(remainingTime / timeLimit) * 100}%`;
       if (remainingTime <= 0) {
-        clearInterval(timer);
+        if (started) {
+          this.onTimeLimitExceeded();
+        }
+        clearInterval(this.#timer);
       }
     }, 1000);
+  }
+
+  stopTimer() {
+    clearInterval(this.#timer);
   }
 }
 
