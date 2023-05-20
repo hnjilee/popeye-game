@@ -1,6 +1,7 @@
 import { Status } from './components/status.js';
 import { Playground } from './components/playground.js';
 import { Counter } from './components/counter.js';
+import { Modal } from './components/modal.js';
 import * as Sound from './sound.js';
 
 const TIME_LIMIT_IN_SEC = 3;
@@ -22,6 +23,8 @@ gamePlayground.setSpinachClickListener(() => {
   }
 });
 
+const gameModal = new Modal();
+
 gamePlayground.setPoisonClickListener(() => {
   stopGame('lose');
 });
@@ -35,4 +38,6 @@ function startGame() {
   gameCounter.switchPopeye('start');
 }
 
-function stopGame(reason) {}
+function stopGame(reason) {
+  gameModal.show(reason);
+}
