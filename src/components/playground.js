@@ -1,3 +1,5 @@
+import * as Sound from '../sound.js';
+
 const Item = Object.freeze({
   spinach: 'spinach',
   poison: 'poison',
@@ -15,7 +17,39 @@ export class Playground {
     window.addEventListener('load', () => {
       this.playgroundRect = this.playground.getBoundingClientRect();
     });
+    this.playground.addEventListener('click', this.onPlaygroundClick);
   }
+
+  setSpinachClickListener = onSpinachClick => {
+    this.onSpinachClick = onSpinachClick;
+  };
+
+  setPoisonClickListener = onPoisonClick => {
+    this.onPoisonClick = onPoisonClick;
+  };
+
+  onPlaygroundClick = e => {
+    const target = e.target;
+    if (!target.matches('.playground__item')) {
+      return;
+    }
+
+    if (target.matches('.spinach')) {
+      this.#onSpinach(target);
+    } else if (target.matches('.poison')) {
+      this.#onPoison();
+    }
+  };
+
+  #onSpinach = target => {
+    Sound.playSpinachClick();
+    target.remove();
+    this.onSpinachClick();
+  };
+
+  #onPoison = () => {
+    this.onPoisonClick();
+  };
 
   displayItems = () => {
     const x1 = 0;
@@ -51,6 +85,7 @@ export class Playground {
     const item = document.createElement('img');
     item.setAttribute('src', `/images/${name}.png`);
     item.classList.add(name);
+    item.classList.add('playground__item');
 
     return item;
   }

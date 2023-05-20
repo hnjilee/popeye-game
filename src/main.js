@@ -15,6 +15,17 @@ gameStatus.setBtnClickListener(startGame);
 const gamePlayground = new Playground(NUM_OF_ITMES);
 const gameCounter = new Counter(NUM_OF_ITMES);
 
+gamePlayground.setSpinachClickListener(() => {
+  gameCounter.increasePopeye(++count);
+  if (count === NUM_OF_ITMES) {
+    stopGame('win');
+  }
+});
+
+gamePlayground.setPoisonClickListener(() => {
+  stopGame('lose');
+});
+
 function startGame() {
   started = true;
   Sound.playBackground();
@@ -23,3 +34,5 @@ function startGame() {
   gamePlayground.displayItems();
   gameCounter.switchPopeye('start');
 }
+
+function stopGame(reason) {}
