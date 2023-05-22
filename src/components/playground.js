@@ -1,4 +1,3 @@
-import { started } from '../main.js';
 import * as Sound from '../sound.js';
 
 const Item = Object.freeze({
@@ -18,8 +17,12 @@ export class Playground {
     window.addEventListener('load', () => {
       this.playgroundRect = this.playground.getBoundingClientRect();
     });
-    this.playground.addEventListener('click', this.onPlaygroundClick);
+    this.playground.addEventListener('click', e => this.onClick(e));
   }
+
+  setClickListener = onClick => {
+    this.onClick = onClick;
+  };
 
   setSpinachClickListener = onSpinachClick => {
     this.onSpinachClick = onSpinachClick;
@@ -29,11 +32,7 @@ export class Playground {
     this.onPoisonClick = onPoisonClick;
   };
 
-  onPlaygroundClick = e => {
-    if (!started) {
-      return;
-    }
-
+  handleClick = e => {
     const target = e.target;
     if (!target.matches('.playground__item')) {
       return;

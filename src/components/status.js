@@ -1,5 +1,3 @@
-import { started } from '../main.js';
-
 export class Status {
   #timer;
   constructor() {
@@ -34,7 +32,7 @@ export class Status {
     this.btn.setAttribute('disabled', '');
   }
 
-  startTimer(timeLimitInSec) {
+  startTimer(timeLimitInSec, isGameStarted) {
     const timeLimit = timeLimitInSec;
     let remainingTime = timeLimit;
 
@@ -46,7 +44,7 @@ export class Status {
       this.time.textContent = formatTime(remainingTime);
       this.progressValue.style.width = `${(remainingTime / timeLimit) * 100}%`;
       if (remainingTime <= 0) {
-        if (started) {
+        if (isGameStarted) {
           this.onTimeLimitExceeded();
         }
         clearInterval(this.#timer);
