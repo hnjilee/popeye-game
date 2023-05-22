@@ -1,3 +1,5 @@
+import { Reason } from './game.js';
+
 export class Modal {
   constructor() {
     this.modal = document.querySelector('.modal');
@@ -23,13 +25,13 @@ export class Modal {
 
   #setTitle(reason) {
     switch (reason) {
-      case 'win':
+      case Reason.win:
         this.title.textContent = "💪 I'm strong 💪";
         break;
-      case 'lose':
+      case Reason.lose:
         this.title.textContent = "💀 I'm dead 💀";
         break;
-      case 'replay':
+      case Reason.replay:
         this.title.textContent = 'Wanna replay?';
         break;
       default:

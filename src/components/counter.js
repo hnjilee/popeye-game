@@ -1,3 +1,5 @@
+import { Reason } from './game.js';
+
 export class Counter {
   #numOfItems;
   constructor(numOfItems) {
@@ -5,25 +7,25 @@ export class Counter {
     this.popeyeImg = document.querySelector('.sidebar__popeye-img');
   }
 
-  switchPopeye = status => {
-    switch (status) {
-      case 'start':
+  switchPopeye = reason => {
+    switch (reason) {
+      case Reason.start:
         this.popeyeImg.setAttribute('src', '/images/popeye-spinach.png');
         this.popeyeImg.style.width = '50%';
         this.popeyeImg.style.height = '50%';
         break;
-      case 'win':
+      case Reason.win:
         this.popeyeImg.setAttribute('src', '/images/popeye-win.png');
         break;
-      case 'lose':
+      case Reason.lose:
         this.popeyeImg.setAttribute('src', '/images/popeye-lose.png');
         this.popeyeImg.style.width = '100%';
         this.popeyeImg.style.height = 'auto';
         break;
-      case 'replay':
+      case Reason.replay:
         return;
       default:
-        console.log(`${status}: not handled status`);
+        console.log(`${reason}: not handled status`);
     }
   };
 

@@ -4,6 +4,13 @@ import { Counter } from './counter.js';
 import { Modal } from './modal.js';
 import * as Sound from '../sound.js';
 
+export const Reason = Object.freeze({
+  start: 'start',
+  win: 'win',
+  lose: 'lose',
+  replay: 'replay',
+});
+
 export class Game {
   #timeLimitInSec;
   #numOfItems;
@@ -38,11 +45,11 @@ export class Game {
     if (!this.#state.isStarted) {
       this.start();
     } else {
-      this.stop('replay');
+      this.stop(Reason.replay);
     }
   };
 
-  onTimeLimitExceeded = () => this.stop('lose');
+  onTimeLimitExceeded = () => this.stop(Reason.lose);
 
   onPlaygroundClick = e => {
     if (!this.#state.isStarted) {
@@ -55,11 +62,11 @@ export class Game {
   onSpinachClick = () => {
     this.counter.increasePopeye(++this.#count);
     if (this.#count === this.#numOfItems) {
-      this.stop('win');
+      this.stop(Reason.win);
     }
   };
 
-  onPoisonClick = () => this.stop('lose');
+  onPoisonClick = () => this.stop(Reason.lose);
 
   onReplay = () => {
     this.reset();
@@ -77,7 +84,7 @@ export class Game {
     this.status.switchBtn(this.#state.isStarted);
     this.status.startTimer(this.#timeLimitInSec, this.#state.isStarted);
     this.playground.displayItems();
-    this.counter.switchPopeye('start');
+    this.counter.switchPopeye(Reason.start);
   };
 
   stop = reason => {

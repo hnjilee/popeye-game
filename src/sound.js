@@ -1,3 +1,5 @@
+import { Reason } from './components/game.js';
+
 const audioBackground = new Audio('/audio/background.m4a');
 const audioSpinach = new Audio('/audio/spinach.wav');
 const audioWin = new Audio('/audio/win.wav');
@@ -18,13 +20,13 @@ export function playSpinachClick() {
 
 export function playStop(reason) {
   switch (reason) {
-    case 'win':
+    case Reason.win:
       playWin();
       break;
-    case 'lose':
+    case Reason.lose:
       playLose();
       break;
-    case 'replay':
+    case Reason.replay:
       playStopBtnClick();
       break;
     default:
