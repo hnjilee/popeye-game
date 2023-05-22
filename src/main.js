@@ -1,3 +1,4 @@
+import { Instruction } from './components/instruction.js';
 import { Status } from './components/status.js';
 import { Playground } from './components/playground.js';
 import { Counter } from './components/counter.js';
@@ -9,6 +10,8 @@ const NUM_OF_ITMES = 3;
 
 export let started = false;
 let count = 0;
+
+const gameInstruction = new Instruction();
 
 const gameStatus = new Status();
 gameStatus.setBtnClickListener(() => {
@@ -35,7 +38,10 @@ gameModal.setReplayListener(() => {
   resetGame();
   startGame();
 });
-gameModal.setCancelListener(resetGame);
+gameModal.setCancelListener(() => {
+  resetGame();
+  gameInstruction.show();
+});
 
 gamePlayground.setPoisonClickListener(() => {
   stopGame('lose');
