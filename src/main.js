@@ -31,6 +31,11 @@ gamePlayground.setSpinachClickListener(() => {
 });
 
 const gameModal = new Modal();
+gameModal.setReplayListener(() => {
+  resetGame();
+  startGame();
+});
+gameModal.setCancelListener(resetGame);
 
 gamePlayground.setPoisonClickListener(() => {
   stopGame('lose');
@@ -53,4 +58,14 @@ function stopGame(reason) {
   gameStatus.disableBtn();
   gameStatus.stopTimer();
   gameCounter.switchPopeye(reason);
+}
+
+function resetGame() {
+  gameModal.hide();
+  gameStatus.switchBtn(started);
+  gameStatus.enableBtn();
+  gameStatus.resetTimer();
+  gamePlayground.clear();
+  count = 0;
+  gameCounter.resetPopeye();
 }

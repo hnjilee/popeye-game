@@ -22,8 +22,12 @@ export class Status {
     if (started) {
       this.btn.innerHTML = '<i class="fa-solid fa-stop"></i> stop';
     } else {
-      this.btn.innerHTML = '<i class="fa-solid fa-start"></i> start';
+      this.btn.innerHTML = '<i class="fa-solid fa-play"></i> start';
     }
+  }
+
+  enableBtn() {
+    this.btn.removeAttribute('disabled');
   }
 
   disableBtn() {
@@ -52,6 +56,11 @@ export class Status {
 
   stopTimer() {
     clearInterval(this.#timer);
+  }
+
+  resetTimer() {
+    this.time.textContent = '00:00';
+    this.progressValue.style.width = '0';
   }
 }
 

@@ -2,7 +2,19 @@ export class Modal {
   constructor() {
     this.modal = document.querySelector('.modal');
     this.title = document.querySelector('.modal__title');
+    this.replayBtn = document.querySelector('.modal__replay');
+    this.replayBtn.addEventListener('click', () => this.onReplay());
+    this.cancelBtn = document.querySelector('.modal__cancel');
+    this.cancelBtn.addEventListener('click', () => this.onCancel());
   }
+
+  setReplayListener = onReplay => {
+    this.onReplay = onReplay;
+  };
+
+  setCancelListener = onCancel => {
+    this.onCancel = onCancel;
+  };
 
   show(reason) {
     this.#setTitle(reason);

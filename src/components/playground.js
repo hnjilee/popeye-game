@@ -94,6 +94,15 @@ export class Playground {
 
     return item;
   }
+
+  clear = () =>
+    (this.playground.innerHTML = `
+    <img
+    src="images/plate.png"
+    alt="plate in playground"
+    class="playground__plate"
+    />
+    `);
 }
 
 function random(min, max) {

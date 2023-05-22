@@ -34,4 +34,10 @@ export class Counter {
     this.popeyeImg.style.width = size;
     this.popeyeImg.style.height = size;
   };
+
+  resetPopeye = () => {
+    this.popeyeImg.setAttribute('src', '/images/popeye-default.png');
+    this.popeyeImg.style.width = 'auto';
+    this.popeyeImg.style.height = 'auto';
+  };
 }
