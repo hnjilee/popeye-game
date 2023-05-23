@@ -30,7 +30,7 @@ export function playStop(reason) {
       playStopBtnClick();
       break;
     default:
-      console.log(`${reason}: not handled reason`);
+      throw new Error(`${reason}: not handled reason`);
   }
 }
 

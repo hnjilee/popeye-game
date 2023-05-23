@@ -2,12 +2,13 @@ import { Reason } from './game.js';
 
 export class Counter {
   #numOfItems;
+
   constructor(numOfItems) {
     this.#numOfItems = numOfItems;
     this.popeyeImg = document.querySelector('.sidebar__popeye-img');
   }
 
-  switchPopeye = reason => {
+  switchPopeye(reason) {
     switch (reason) {
       case Reason.start:
         this.popeyeImg.setAttribute('src', '/images/popeye-spinach.png');
@@ -27,19 +28,19 @@ export class Counter {
       default:
         console.log(`${reason}: not handled status`);
     }
-  };
+  }
 
-  increasePopeye = count => {
+  increasePopeye(count) {
     const size = `
       ${(count / this.#numOfItems) * 50 + 50}%
       `;
     this.popeyeImg.style.width = size;
     this.popeyeImg.style.height = size;
-  };
+  }
 
-  resetPopeye = () => {
+  resetPopeye() {
     this.popeyeImg.setAttribute('src', '/images/popeye-default.png');
     this.popeyeImg.style.width = 'auto';
     this.popeyeImg.style.height = 'auto';
-  };
+  }
 }

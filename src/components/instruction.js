@@ -1,14 +1,14 @@
 export class Instruction {
   constructor() {
     this.instruction = document.querySelector('.instruction');
-    this.instruction.addEventListener('click', this.hide);
+    this.instruction.addEventListener('click', () => this.hide());
   }
 
-  show = () => {
+  show() {
     this.instruction.classList.remove('instruction--hidden');
-  };
+  }
 
-  hide = () => {
+  hide() {
     this.instruction.classList.add('instruction--hidden');
-  };
+  }
 }

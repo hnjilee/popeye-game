@@ -1,4 +1,4 @@
-import * as Sound from '../sound.js';
+import * as sound from '../sound.js';
 
 const Item = Object.freeze({
   spinach: 'spinach',
@@ -20,19 +20,19 @@ export class Playground {
     this.playground.addEventListener('click', e => this.onClick(e));
   }
 
-  setClickListener = onClick => {
+  setClickListener(onClick) {
     this.onClick = onClick;
-  };
+  }
 
-  setSpinachClickListener = onSpinachClick => {
+  setSpinachClickListener(onSpinachClick) {
     this.onSpinachClick = onSpinachClick;
-  };
+  }
 
-  setPoisonClickListener = onPoisonClick => {
+  setPoisonClickListener(onPoisonClick) {
     this.onPoisonClick = onPoisonClick;
-  };
+  }
 
-  handleClick = e => {
+  handleClick(e) {
     const target = e.target;
     if (!target.matches('.playground__item')) {
       return;
@@ -43,19 +43,17 @@ export class Playground {
     } else if (target.matches('.poison')) {
       this.#onPoison();
     }
-  };
+  }
 
   #onSpinach = target => {
-    Sound.playSpinachClick();
+    sound.playSpinachClick();
     target.remove();
     this.onSpinachClick();
   };
 
-  #onPoison = () => {
-    this.onPoisonClick();
-  };
+  #onPoison = () => this.onPoisonClick();
 
-  displayItems = () => {
+  displayItems() {
     const x1 = 0;
     const x2 =
       this.playgroundRect.right -
@@ -71,11 +69,11 @@ export class Playground {
       this.#displayItem(Item.spinach, x1, x2, y1, y2);
       this.#displayItem(Item.poison, x1, x2, y1, y2);
     }
-  };
+  }
 
   #displayItem(name, x1, x2, y1, y2) {
-    const x = random(x1, x2);
-    const y = random(y1, y2);
+    const x = Playground.#random(x1, x2);
+    const y = Playground.#random(y1, y2);
 
     const item = this.#createItem(name);
     item.style.position = 'absolute';
@@ -94,16 +92,17 @@ export class Playground {
     return item;
   }
 
-  clear = () =>
-    (this.playground.innerHTML = `
+  clear() {
+    this.playground.innerHTML = `
     <img
     src="images/plate.png"
     alt="plate in playground"
     class="playground__plate"
     />
-    `);
-}
+    `;
+  }
 
-function random(min, max) {
-  return Math.random() * (max - min) + min;
+  static #random(min, max) {
+    return Math.random() * (max - min) + min;
+  }
 }

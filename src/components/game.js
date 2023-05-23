@@ -2,7 +2,7 @@ import { Status } from './status.js';
 import { Playground } from './playground.js';
 import { Counter } from './counter.js';
 import { Modal } from './modal.js';
-import * as Sound from '../sound.js';
+import * as sound from '../sound.js';
 
 export const Reason = Object.freeze({
   start: 'start',
@@ -25,79 +25,86 @@ export class Game {
     this.#count = 0;
 
     this.status = new Status();
-    this.status.setBtnClickListener(this.onStatusBtnClick);
-    this.status.setTimeLimitExceeded(this.onTimeLimitExceeded);
+    this.status.setBtnClickListener(() => this.onStatusBtnClick());
+    this.status.setTimeLimitExceeded(() => this.onTimeLimitExceeded());
+
     this.playground = new Playground(this.#numOfItems);
-    this.playground.setClickListener(this.onPlaygroundClick);
-    this.playground.setSpinachClickListener(this.onSpinachClick);
-    this.playground.setPoisonClickListener(this.onPoisonClick);
+    this.playground.setClickListener(e => this.onPlaygroundClick(e));
+    this.playground.setSpinachClickListener(() => this.onSpinachClick());
+    this.playground.setPoisonClickListener(() => this.onPoisonClick());
+
     this.counter = new Counter(this.#numOfItems);
+
     this.modal = new Modal();
-    this.modal.setReplayListener(this.onReplay);
-    this.modal.setCancelListener(this.onCancel);
+    this.modal.setReplayListener(() => this.onReplay());
+    this.modal.setCancelListener(() => this.onCancel());
   }
 
-  setGameCancelListener = onGameCancel => {
+  setGameCancelListener(onGameCancel) {
     this.onGameCancel = onGameCancel;
-  };
+  }
 
-  onStatusBtnClick = () => {
+  onStatusBtnClick() {
     if (!this.#state.isStarted) {
       this.start();
     } else {
       this.stop(Reason.replay);
     }
-  };
+  }
 
-  onTimeLimitExceeded = () => this.stop(Reason.lose);
+  onTimeLimitExceeded() {
+    this.stop(Reason.lose);
+  }
 
-  onPlaygroundClick = e => {
+  onPlaygroundClick(e) {
     if (!this.#state.isStarted) {
       return;
     }
 
     this.playground.handleClick(e);
-  };
+  }
 
-  onSpinachClick = () => {
+  onSpinachClick() {
     this.counter.increasePopeye(++this.#count);
     if (this.#count === this.#numOfItems) {
       this.stop(Reason.win);
     }
-  };
+  }
 
-  onPoisonClick = () => this.stop(Reason.lose);
+  onPoisonClick() {
+    this.stop(Reason.lose);
+  }
 
-  onReplay = () => {
+  onReplay() {
     this.reset();
     this.start();
-  };
+  }
 
-  onCancel = () => {
+  onCancel() {
     this.reset();
     this.onGameCancel();
-  };
+  }
 
-  start = () => {
+  start() {
     this.#state.isStarted = true;
-    Sound.playBackground();
+    sound.playBackground();
     this.status.switchBtn(this.#state.isStarted);
     this.status.startTimer(this.#timeLimitInSec, this.#state.isStarted);
     this.playground.displayItems();
     this.counter.switchPopeye(Reason.start);
-  };
+  }
 
-  stop = reason => {
+  stop(reason) {
     this.#state.isStarted = false;
-    Sound.pauseBackground();
-    Sound.playStop(reason);
+    sound.pauseBackground();
+    sound.playStop(reason);
     this.modal.show(reason);
     this.status.disableBtn();
     this.status.stopTimer();
     this.counter.switchPopeye(reason);
-  };
+  }
 
-  reset = () => {
+  reset() {
     this.modal.hide();
     this.status.switchBtn(this.#state.isStarted);
     this.status.enableBtn();
@@ -105,5 +112,5 @@ export class Game {
     this.playground.clear();
     this.#count = 0;
     this.counter.resetPopeye();
-  };
+  }
 }

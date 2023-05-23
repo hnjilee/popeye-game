@@ -10,9 +10,9 @@ export class Modal {
     this.cancelBtn.addEventListener('click', () => this.onCancel());
   }
 
-  setReplayListener = onReplay => {
+  setReplayListener(onReplay) {
     this.onReplay = onReplay;
-  };
+  }
 
   setCancelListener = onCancel => {
     this.onCancel = onCancel;
@@ -35,11 +35,11 @@ export class Modal {
         this.title.textContent = 'Wanna replay?';
         break;
       default:
-        console.log('reason not handled');
+        throw new Error(`${reason}: not handled reason`);
     }
   }
 
-  hide = () => {
+  hide() {
     this.modal.classList.add('modal--hidden');
-  };
+  }
 }

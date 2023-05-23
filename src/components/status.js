@@ -1,20 +1,21 @@
 export class Status {
   #timer;
   constructor() {
+    this.#timer = null;
+
     this.btn = document.querySelector('.status__btn');
     this.btn.addEventListener('click', () => this.onBtnClick());
     this.time = document.querySelector('.status__time');
     this.progressValue = document.querySelector('.status__progress-value');
-    this.#timer = null;
   }
 
-  setBtnClickListener = onBtnClick => {
+  setBtnClickListener(onBtnClick) {
     this.onBtnClick = onBtnClick;
-  };
+  }
 
-  setTimeLimitExceeded = onTimeLimitExceeded => {
+  setTimeLimitExceeded(onTimeLimitExceeded) {
     this.onTimeLimitExceeded = onTimeLimitExceeded;
-  };
+  }
 
   switchBtn(started) {
     if (started) {
@@ -36,13 +37,13 @@ export class Status {
     const timeLimit = timeLimitInSec;
     let remainingTime = timeLimit;
 
-    this.time.textContent = formatTime(remainingTime);
+    this.time.textContent = Status.#formatTime(remainingTime);
     this.progressValue.style.width = '100%';
 
     this.#timer = setInterval(() => {
-      remainingTime--;
-      this.time.textContent = formatTime(remainingTime);
+      this.time.textContent = Status.#formatTime(--remainingTime);
       this.progressValue.style.width = `${(remainingTime / timeLimit) * 100}%`;
+
       if (remainingTime <= 0) {
         if (isGameStarted) {
           this.onTimeLimitExceeded();
@@ -60,14 +61,14 @@ export class Status {
     this.time.textContent = '00:00';
     this.progressValue.style.width = '0';
   }
-}
 
-function formatTime(timeInSec) {
-  const minutes = parseInt(timeInSec / 60);
-  const seconds = parseInt(timeInSec % 60);
+  static #formatTime(timeInSec) {
+    const minutes = parseInt(timeInSec / 60);
+    const seconds = parseInt(timeInSec % 60);
 
-  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-  const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
-  return `${formattedMinutes}:${formattedSeconds}`;
+    return `${formattedMinutes}:${formattedSeconds}`;
+  }
 }
