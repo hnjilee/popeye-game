@@ -65,10 +65,11 @@ export class Game {
   }
 
   onSpinachClick() {
-    this.counter.increasePopeye(++this.#count);
-    if (this.#count === this.#numOfItems) {
+    if (++this.#count === this.#numOfItems) {
       this.stop(Reason.win);
+      return;
     }
+    this.counter.increasePopeye(this.#count);
   }
 
   onPoisonClick() {

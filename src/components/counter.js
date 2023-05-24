@@ -5,6 +5,12 @@ export class Counter {
 
   constructor(numOfItems) {
     this.#numOfItems = numOfItems;
+
+    this.imgWin = new Image();
+    this.imgWin.src = '/images/popeye-win.png';
+    this.imgLose = new Image();
+    this.imgLose.src = '/images/popeye-lose.png';
+
     this.popeyeImg = document.querySelector('.sidebar__popeye-img');
   }
 
@@ -17,6 +23,8 @@ export class Counter {
         break;
       case Reason.win:
         this.popeyeImg.setAttribute('src', '/images/popeye-win.png');
+        this.popeyeImg.style.width = '100%';
+        this.popeyeImg.style.height = '100%';
         break;
       case Reason.lose:
         this.popeyeImg.setAttribute('src', '/images/popeye-lose.png');
@@ -26,7 +34,7 @@ export class Counter {
       case Reason.replay:
         return;
       default:
-        console.log(`${reason}: not handled status`);
+        throw new Error(`${reason}: not handled status`);
     }
   }
 
